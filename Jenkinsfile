@@ -48,22 +48,8 @@ pipeline {
                     }
                 }
                 stage ('Deploy snapshot') {
-                    when {
-                        not {
-                            branch 'master'
-                        }
-                    }
                     steps {
                         sh 'mvn deploy -DaltDeploymentRepository=snapshots-paul::http://nexus3.int.paules.nl/repository/snapshots/'
-                    }
-                }
-
-                stage ('Deploy master') {
-                    when {
-                        branch 'master'
-                    }
-                    steps {
-                        sh 'mvn deploy -Psonatype-oss-release'
                     }
                 }
             }
