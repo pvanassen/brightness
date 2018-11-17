@@ -30,11 +30,6 @@ pipeline {
             steps {
                 sh 'mvn -B test -Dmaven.test.failure.ignore=true'
             }
-            post {
-                always {
-                    junit 'target/surefire-reports/**/*.xml'
-                }
-            }
         }
 
         stage ('Sonar') {
