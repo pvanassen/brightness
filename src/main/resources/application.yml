@@ -1,3 +1,7 @@
 micronaut:
     application:
         name: christmas-tree-brightness
+app:
+    graphite:
+        server: http://localhost
+        luminosity.target: graphite-target

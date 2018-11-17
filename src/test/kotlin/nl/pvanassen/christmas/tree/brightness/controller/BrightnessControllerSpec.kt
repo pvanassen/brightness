@@ -1,4 +1,4 @@
-package nl.pvanassen.christmas.tree.brightness
+package nl.pvanassen.christmas.tree.brightness.controller
 
 import io.micronaut.context.ApplicationContext
 import io.micronaut.http.client.HttpClient

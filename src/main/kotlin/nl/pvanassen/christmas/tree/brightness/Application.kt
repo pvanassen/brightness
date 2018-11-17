@@ -7,7 +7,9 @@ object Application {
     @JvmStatic
     fun main(args: Array<String>) {
         Micronaut.build()
-                .packages("nl.pvanassen.christmas.tree.brightness")
+                .packages("nl.pvanassen.christmas.tree.brightness.client",
+                        "nl.pvanassen.christmas.tree.brightness.controller",
+                        "nl.pvanassen.christmas.tree.brightness.service")
                 .mainClass(Application.javaClass)
                 .start()
     }
