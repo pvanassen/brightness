@@ -46,8 +46,10 @@ pipeline {
         stage ('Deploy') {
             parallel {
                 stage ('Docker') {
-                    script {
-                        docker.build "christmas-tree-brightness:$BUILD_NUMBER"
+                    steps {
+                        script {
+                            docker.build "christmas-tree-brightness:$BUILD_NUMBER"
+                        }
                     }
                 }
                 stage ('Deploy snapshot') {
