@@ -39,17 +39,15 @@ pipeline {
         }
 
         stage ('Deploy') {
-            parallel {
-                stage ('Docker') {
-                    steps {
-                        script {
-                            docker.build "christmas-tree-brightness:$BUILD_NUMBER"
-                        }
-                    }
+            stage ('Deploy snapshot') {
+                steps {
+                    sh 'mvn deploy -DaltDeploymentRepository=snapshots-paul::http://nexus3.int.paules.nl/repository/snapshots/'
                 }
-                stage ('Deploy snapshot') {
-                    steps {
-                        sh 'mvn deploy -DaltDeploymentRepository=snapshots-paul::http://nexus3.int.paules.nl/repository/snapshots/'
+            }
+            stage ('Docker') {
+                steps {
+                    script {
+                        docker.build "christmas-tree-brightness:$BUILD_NUMBER"
                     }
                 }
             }
