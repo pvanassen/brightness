@@ -39,14 +39,38 @@ pipeline {
         }
 
         stage ('Deploy snapshot') {
-            steps {
-                sh 'mvn deploy -DaltDeploymentRepository=snapshots-paul::http://nexus3.int.paules.nl/repository/snapshots/'
+            when {
+                not {
+                    branch('master')
+                }
+            }
+            stage ('Deploy snapshot') {
+                steps {
+                    sh 'mvn deploy -DaltDeploymentRepository=snapshots-paul::http://nexus3.int.paules.nl/repository/snapshots/'
+                }
+            }
+            stage ('Docker snapshot') {
+                steps {
+                    script {
+                        docker.build "christmas-tree-brightness:$BUILD_NUMBER"
+                    }
+                }
             }
         }
-        stage ('Docker') {
-            steps {
-                script {
-                    docker.build "christmas-tree-brightness:$BUILD_NUMBER"
+        stage ('Deploy master') {
+            when {
+                branch('master')
+            }
+            stage ('Deploy release') {
+                steps {
+                    sh 'mvn deploy -Psonatype-oss-release'
+                }
+            }
+            stage ('Docker snapshot') {
+                steps {
+                    script {
+                        docker.build "christmas-tree-brightness:latest"
+                    }
                 }
             }
         }
