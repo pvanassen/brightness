@@ -47,7 +47,7 @@ pipeline {
             parallel {
                 stage ('Deploy snapshot') {
                     steps {
-                        sh 'mvn deploy -DaltDeploymentRepository=snapshots-paul::http://nexus3.int.paules.nl/repository/snapshots/'
+                        sh "mvn deploy -DaltDeploymentRepository=$DEPLOYMENT_REPOSITORY"
                     }
                 }
                 stage ('Docker snapshot') {
@@ -72,7 +72,8 @@ pipeline {
                 stage ('Docker snapshot') {
                     steps {
                         script {
-                            docker.build "christmas-tree-brightness:latest"
+                            docker.build "$DOCKER_REPO/christmas-tree-brightness:latest"
+                            docker.push "$DOCKER_REPO/christmas-tree-brightness:latest"
                         }
                     }
                 }
