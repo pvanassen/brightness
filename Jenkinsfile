@@ -47,7 +47,7 @@ pipeline {
             parallel {
                 stage ('Deploy snapshot') {
                     steps {
-                        sh "mvn deploy -DaltDeploymentRepository=$DEPLOYMENT_REPOSITORY"
+                        sh "mvn deploy -DaltDeploymentRepository=$SNAPSHOT_REPOSITORY"
                     }
                 }
                 stage ('Docker snapshot') {
@@ -66,7 +66,7 @@ pipeline {
             parallel {
                 stage ('Deploy release') {
                     steps {
-                        sh 'mvn deploy -Psonatype-oss-release'
+                        sh "mvn deploy -DaltDeploymentRepository=$RELEASE_REPOSITORY"
                     }
                 }
                 stage ('Docker snapshot') {
