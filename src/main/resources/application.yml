@@ -9,7 +9,7 @@ app:
 consul:
   client:
     registration:
-      enabled: true
+      enabled: ${CONSUL_ENABLED:true}
       tags:
       - christmas-tree
       - brightness
@@ -18,7 +18,7 @@ consul:
     defaultZone: "${CONSUL_HOST:localhost}:${CONSUL_PORT:8500}"
 tracing:
   zipkin:
-    enabled: true
+    enabled: ${ZIPKIN_ENABLED:true}
     http:
       url: http://${ZIPKIN_HOST:localhost}:${ZIPKIN_PORT:9411}
       sampler:
