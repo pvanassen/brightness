@@ -1,10 +1,11 @@
-FROM oracle/graalvm-ce:1.0.0-rc8
+FROM oracle/graalvm-ce:1.0.0-rc9
 EXPOSE 8080
 COPY target/christmas-tree-brightness-*.jar christmas-tree-brightness.jar
 ADD . target
 RUN java -cp christmas-tree-brightness.jar io.micronaut.graal.reflect.GraalClassLoadingAnalyzer \
     && native-image --no-server \
              --class-path christmas-tree-brightness.jar \
+             --report-unsupported-elements-at-runtime \
              -H:ReflectionConfigurationFiles=target/reflect.json \
              -H:EnableURLProtocols=http \
              -H:IncludeResources="logback.xml|application.yml|META-INF/services/*.*" \
