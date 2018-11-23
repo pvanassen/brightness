@@ -69,11 +69,11 @@ pipeline {
                         sh "mvn deploy -DaltDeploymentRepository=$RELEASE_REPOSITORY"
                     }
                 }
-                stage ('Docker snapshot') {
+                stage ('Docker latest') {
                     steps {
                         script {
-                            docker.build "$DOCKER_REPO/christmas-tree-brightness:latest"
-                            docker.push "$DOCKER_REPO/christmas-tree-brightness:latest"
+                            def image = docker.build "$DOCKER_REPO/christmas-tree-brightness:latest"
+                            image.push()
                         }
                     }
                 }
