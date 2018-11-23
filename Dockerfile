@@ -15,7 +15,5 @@ RUN java -cp christmas-tree-brightness.jar io.micronaut.graal.reflect.GraalClass
              -H:-UseServiceLoaderFeature \
              --rerun-class-initialization-at-runtime='sun.security.jca.JCAUtil$CachedSecureRandomHolder,javax.net.ssl.SSLContext' \
              --delay-class-initialization-to-runtime=io.netty.handler.codec.http.HttpObjectEncoder,io.netty.handler.codec.http.websocketx.WebSocket00FrameEncoder,io.netty.handler.ssl.util.ThreadLocalInsecureRandom,com.sun.jndi.dns.DnsClient
-RUN mkdir /config && \
-    touch /config/application-docker.yml
 
-ENTRYPOINT ["./christmas-tree-brightness", "-Dmicronaut.config.files=/config/application-docker.yml"]
+ENTRYPOINT ["./christmas-tree-brightness"]

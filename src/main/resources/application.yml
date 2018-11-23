@@ -1,7 +1,28 @@
 micronaut:
-    application:
-        name: christmas-tree-brightness
+  application:
+    name: christmas-tree-brightness
+    id: ${random.shortuuid}
 app:
-    graphite:
-        server: http://localhost
-        luminosity.target: graphite-target
+  graphite:
+    server: http://${GRAPHITE_HOST:localhost}:${GRAPHITE_PORT:80}
+    luminosity.target: ${GRAPHITE_LUMINOSITY_TARGET:target}
+consul:
+  client:
+    registration:
+      enabled: true
+      tags:
+      - christmas-tree
+      - brightness
+      retry-count: 5
+      fail-fast: true
+    defaultZone: "${CONSUL_HOST:localhost}:${CONSUL_PORT:8500}"
+tracing:
+  zipkin:
+    enabled: true
+    http:
+      url: http://${ZIPKIN_HOST:localhost}:${ZIPKIN_PORT:9411}
+      sampler:
+        probability: ${ZIPKIN_PROBABILITY:1}
+endpoints:
+  all:
+    sensitive: false
