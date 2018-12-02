@@ -9,7 +9,7 @@ import nl.pvanassen.christmas.tree.brightness.service.BrightnessService
 @Controller("/brightness")
 open class BrightnessController(private val brightnessService: BrightnessService) {
 
-    @Get("/")
+    @Get
     @ContinueSpan
     open fun index(): Maybe<Float> {
         return brightnessService.getBrightness()

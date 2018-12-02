@@ -1,3 +1,10 @@
 package nl.pvanassen.christmas.tree.brightness.client
 
-class GraphiteResponse(val target: String, val datapoints: List<GraphiteDatapoint>)
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonProperty
+
+class GraphiteResponse @JsonCreator internal constructor(@JsonProperty("target") val target: String,
+                                                         @JsonProperty("datapoints") val datapoints: Array<Array<String>>) {
+
+    fun getGraphiteDatapoints() = datapoints.map {GraphiteDatapoint(it)}
+}
